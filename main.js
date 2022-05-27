@@ -25,9 +25,9 @@ app.use("/Menu/:id", function (req, res) {
   var id = req.params.id;
 
   var con = mysql2.createConnection({
-    user: "root",
-    password: "root",
-    database: "Restaurant",
+    user: "DOULf0WVxQ",
+    password: "LNMJOA5YWM",
+    database: "DOULf0WVxQ",
     port: 3306,
   });
 
@@ -48,9 +48,9 @@ app.use("/Menu/:id", function (req, res) {
 app.get("/productos/:id", function (req, res) {
   var id = req.params.id;
   var con = mysql2.createConnection({
-    user: "root",
-    password: "root",
-    database: "Restaurant",
+    user: "DOULf0WVxQ",
+    password: "LNMJOA5YWM",
+    database: "DOULf0WVxQ",
     port: 3306,
   });
 
@@ -71,9 +71,9 @@ app.get("/Admin/:user/:pass", (req, res) => {
   var pass = req.params.pass;
 
   var con = mysql2.createConnection({
-    user: "root",
-    password: "root",
-    database: "Restaurant",
+    user: "DOULf0WVxQ",
+    password: "LNMJOA5YWM",
+    database: "DOULf0WVxQ",
     port: 3306,
   });
 
@@ -99,9 +99,9 @@ app.get("/Admin/:user/:pass", (req, res) => {
 app.delete("/Admin/delete/:id", (req, res) => {
   var id = req.params.id;
   var con = mysql2.createConnection({
-    user: "root",
-    password: "root",
-    database: "Restaurant",
+    user: "DOULf0WVxQ",
+    password: "LNMJOA5YWM",
+    database: "DOULf0WVxQ",
     port: 3306,
   });
 
@@ -145,9 +145,9 @@ app.put("/Admin/update/:id", (req, res) => {
   });
 
   var con = mysql2.createConnection({
-    user: "root",
-    password: "root",
-    database: "Restaurant",
+    user: "DOULf0WVxQ",
+    password: "LNMJOA5YWM",
+    database: "DOULf0WVxQ",
     port: 3306,
   });
 
@@ -190,9 +190,9 @@ app.post("/Admin/create", (req,res)=>{
   });
 
   var con = mysql2.createConnection({
-    user: "root",
-    password: "root",
-    database: "Restaurant",
+    user: "DOULf0WVxQ",
+    password: "LNMJOA5YWM",
+    database: "DOULf0WVxQ",
     port: 3306,
   });
 
