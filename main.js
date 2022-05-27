@@ -32,6 +32,7 @@ app.use("/Menu/:id", function (req, res) {
   var id = req.params.id;
 
   var con = mysql2.createConnection({
+    host: "remotemysql.com",
     user: "DOULf0WVxQ",
     password: "LNMJOA5YWM",
     database: "DOULf0WVxQ",
@@ -55,6 +56,7 @@ app.use("/Menu/:id", function (req, res) {
 app.get("/productos/:id", function (req, res) {
   var id = req.params.id;
   var con = mysql2.createConnection({
+    host: "remotemysql.com",
     user: "DOULf0WVxQ",
     password: "LNMJOA5YWM",
     database: "DOULf0WVxQ",
@@ -78,6 +80,7 @@ app.get("/Admin/:user/:pass", (req, res) => {
   var pass = req.params.pass;
 
   var con = mysql2.createConnection({
+    host: "remotemysql.com",
     user: "DOULf0WVxQ",
     password: "LNMJOA5YWM",
     database: "DOULf0WVxQ",
@@ -106,6 +109,7 @@ app.get("/Admin/:user/:pass", (req, res) => {
 app.delete("/Admin/delete/:id", (req, res) => {
   var id = req.params.id;
   var con = mysql2.createConnection({
+    host: "remotemysql.com",
     user: "DOULf0WVxQ",
     password: "LNMJOA5YWM",
     database: "DOULf0WVxQ",
@@ -152,6 +156,7 @@ app.put("/Admin/update/:id", (req, res) => {
   });
 
   var con = mysql2.createConnection({
+    host: "remotemysql.com",
     user: "DOULf0WVxQ",
     password: "LNMJOA5YWM",
     database: "DOULf0WVxQ",
@@ -197,6 +202,7 @@ app.post("/Admin/create", (req,res)=>{
   });
 
   var con = mysql2.createConnection({
+    host: "remotemysql.com",
     user: "DOULf0WVxQ",
     password: "LNMJOA5YWM",
     database: "DOULf0WVxQ",
