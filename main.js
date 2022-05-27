@@ -148,7 +148,7 @@ app.put("/Admin/update/:id", (req, res) => {
   //decodificar imagen y guardarla en la carpeta public
   var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
 
-  fs.writeFile("./public/", decodedImage, function (err) {
+  fs.writeFile(`./public/${nombreFoto}`, decodedImage, function (err) {
     if (err) {
       console.log(err);
     } else {
@@ -189,12 +189,12 @@ app.post("/Admin/create", (req,res)=>{
 
   //decodificar imagen y guardarla en la carpeta public
   var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
-  // var ruta = `public\\${nombreFoto}`;
+  var ruta = `public\\${nombreFoto}`;
   
   // const __filename = fileURLToPath(import.meta.url);
   // const __dirname = path.dirname(__filename);
 
-  fs.writeFile("./public/", decodedImage, function (err) {
+  fs.writeFile(`./public/${nombreFoto}`, decodedImage, function (err) {
     if (err) {
       console.log(err);
     } else {
