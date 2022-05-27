@@ -3,11 +3,14 @@ import mysql2 from "mysql2";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import cors from "cors";
+// import config from "./config";
 
 var app = express();
 
 app.use("/static", express.static("public"));
 app.use(json());
+app.use(cors());
 
 app.get("/",(req,res)=>{
 
@@ -31,7 +34,7 @@ app.get("/Ventas", function (req, res) {
 app.use("/Menu/:id", function (req, res) {
   var id = req.params.id;
 
-  res.header('Access-Control-Allow-Headers: Authorization');
+  // config.application.cors.server
 
   var con = mysql2.createConnection({
     host: "remotemysql.com",
