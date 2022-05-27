@@ -31,6 +31,8 @@ app.get("/Ventas", function (req, res) {
 app.use("/Menu/:id", function (req, res) {
   var id = req.params.id;
 
+  res.header('Access-Control-Allow-Headers: Authorization');
+
   var con = mysql2.createConnection({
     host: "remotemysql.com",
     user: "DOULf0WVxQ",
