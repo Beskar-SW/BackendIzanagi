@@ -125,7 +125,7 @@ app.delete("/Admin/delete/:id", (req, res) => {
   });
 });
 
-app.put("/Admin/update/:id", upload.fields([]),(req, res) => {
+app.put("/Admin/update/:id", upload.any(),(req, res) => {
   var id = req.params.id;
   var data = req.body;
   // var producto = data.producto;
