@@ -136,6 +136,7 @@ app.put("/Admin/update/:id", upload.any(),(req, res) => {
 
   console.log({data});
   console.log(producto,precio,descripcion);
+  console.log(req.files);
 
   // //decodificar imagen y guardarla en la carpeta public
   // var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
