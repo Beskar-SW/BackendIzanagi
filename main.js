@@ -68,6 +68,26 @@ app.get("/productos/:id", function (req, res) {
   con.end();
 });
 
+app.get("/allproducts", function (req, res) {
+  var con = mysql2.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
+    port: 3306,
+  });
+
+  con.query(
+    "SELECT producto FROM Productos",
+    function (err, rows, fields) {
+      if (err) throw err;
+      res.json(rows);
+    }
+  );
+
+  con.end();
+});
+
 app.get("/Admin/:user/:pass", (req, res) => {
   var user = req.params.user;
   var pass = req.params.pass;
