@@ -1,10 +1,8 @@
 import express, { json } from "express";
 import mysql2 from "mysql2";
-import path from "path";
-import { fileURLToPath } from "url";
 import fs from "fs";
 import cors from "cors";
-// import config from "./config";
+import "dotenv/config";
 
 var app = express();
 
@@ -19,28 +17,16 @@ app.get("/",(req,res)=>{
   });
 });
 
-app.post("/Ventas", function (req, res) {
-  var data = req.body;
-  console.log({ data });
-  res.send({ message: "ok" }).status(200);
-});
-
-app.get("/Ventas", function (req, res) {
-  var data = req.body.name;
-  console.log(data);
-  res.send({ message: "ok" }).status(200);
-});
-
 app.use("/Menu/:id", function (req, res) {
   var id = req.params.id;
 
   // config.application.cors.server
 
   var con = mysql2.createConnection({
-    host: "remotemysql.com",
-    user: "DOULf0WVxQ",
-    password: "LNMJOA5YWM",
-    database: "DOULf0WVxQ",
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
     port: 3306,
   });
 
@@ -61,10 +47,10 @@ app.use("/Menu/:id", function (req, res) {
 app.get("/productos/:id", function (req, res) {
   var id = req.params.id;
   var con = mysql2.createConnection({
-    host: "remotemysql.com",
-    user: "DOULf0WVxQ",
-    password: "LNMJOA5YWM",
-    database: "DOULf0WVxQ",
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
     port: 3306,
   });
 
@@ -85,10 +71,10 @@ app.get("/Admin/:user/:pass", (req, res) => {
   var pass = req.params.pass;
 
   var con = mysql2.createConnection({
-    host: "remotemysql.com",
-    user: "DOULf0WVxQ",
-    password: "LNMJOA5YWM",
-    database: "DOULf0WVxQ",
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
     port: 3306,
   });
 
@@ -114,10 +100,10 @@ app.get("/Admin/:user/:pass", (req, res) => {
 app.delete("/Admin/delete/:id", (req, res) => {
   var id = req.params.id;
   var con = mysql2.createConnection({
-    host: "remotemysql.com",
-    user: "DOULf0WVxQ",
-    password: "LNMJOA5YWM",
-    database: "DOULf0WVxQ",
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
     port: 3306,
   });
 
@@ -139,39 +125,41 @@ app.delete("/Admin/delete/:id", (req, res) => {
 app.put("/Admin/update/:id", (req, res) => {
   var id = req.params.id;
   var data = req.body;
-  var producto = data.producto;
-  var precio = data.precio;
-  var descripcion = data.descripcion;
-  var imagen = data.base64;
-  var nombreFoto = data.rutaFoto;
+  // var producto = data.producto;
+  // var precio = data.precio;
+  // var descripcion = data.descripcion;
+  // var imagen = data.base64;
+  // var nombreFoto = data.rutaFoto;
 
-  //decodificar imagen y guardarla en la carpeta public
-  var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
+  console.log(data);
 
-  fs.writeFile(`./public/${nombreFoto}`, decodedImage, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("The file was saved!");
-    }
-  });
+  // //decodificar imagen y guardarla en la carpeta public
+  // var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
 
-  var con = mysql2.createConnection({
-    host: "remotemysql.com",
-    user: "DOULf0WVxQ",
-    password: "LNMJOA5YWM",
-    database: "DOULf0WVxQ",
-    port: 3306,
-  });
+  // fs.writeFile(`./public/${nombreFoto}`, decodedImage, function (err) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log("The file was saved!");
+  //   }
+  // });
 
-  con.query(
-    "UPDATE Productos SET producto = ?, precio = ?, descripcion = ?, rutaFoto = ? WHERE idProducto = ?",
-    [producto, precio, descripcion, nombreFoto, +id],
-    (err, rows, fields) => {
-      if (err) throw err;
-    }
-  );
-  con.end();
+  // var con = mysql2.createConnection({
+  //   host: "localhost",
+  //   user: "root",
+  //   password: "root",
+  //   database: "Restaurant",
+  //   port: 3306,
+  // });
+
+  // con.query(
+  //   "UPDATE Productos SET producto = ?, precio = ?, descripcion = ?, rutaFoto = ? WHERE idProducto = ?",
+  //   [producto, precio, descripcion, nombreFoto, +id],
+  //   (err, rows, fields) => {
+  //     if (err) throw err;
+  //   }
+  // );
+  // con.end();
 
   res.status(200).json({
     response: "ok",
@@ -188,8 +176,8 @@ app.post("/Admin/create", (req,res)=>{
   var tipo = data.tipo;
 
   //decodificar imagen y guardarla en la carpeta public
-  var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
-  var ruta = `public\\${nombreFoto}`;
+  var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,\//,''), "base64");
+  // var ruta = `public\\${nombreFoto}`;
   
   // const __filename = fileURLToPath(import.meta.url);
   // const __dirname = path.dirname(__filename);
@@ -203,10 +191,10 @@ app.post("/Admin/create", (req,res)=>{
   });
 
   var con = mysql2.createConnection({
-    host: "remotemysql.com",
-    user: "DOULf0WVxQ",
-    password: "LNMJOA5YWM",
-    database: "DOULf0WVxQ",
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
     port: 3306,
   });
 
@@ -222,9 +210,79 @@ app.post("/Admin/create", (req,res)=>{
   res.status(200).json({
     response: "ok",
   });
-})
+});
+
+app.post("/Admin/Pedidos", (req,res)=>{
+  var pedido = req.body;
+
+  var con = mysql2.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
+    port: 3306,
+  });
+
+  const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  console.log(fecha);
+
+  con.query("INSERT INTO Pedidos(fecha) values (?)", [fecha], (err, rows, fields) => {
+    if (err) throw err;
+  });
+
+  con.query("Select idPedido from Pedidos where fecha = ?", [fecha], (err, rows, fields) => {
+    if (err) throw err;
+    var idPedido = rows[0].idPedido;
+    con.query("INSERT INTO PedidosP(idPedido, idProducto, cantidad, nombrePersona) values (?,?,?,?)", [idPedido, +pedido.idProducto, +pedido.cantidad, idPedido.cliente], (err, rows, fields) => {
+      if (err) throw err;
+    });
+  });
+
+  con.end();
+
+  res.status(200).json({
+    response: "ok",
+  });
+});
+
+app.post("Admin/Ventas", (req,res)=>{
+
+  var productos = req.body.productos;
+
+  var con = mysql2.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
+    port: 3306,
+  });
+
+  const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  console.log(fecha);
+
+  con.query("INSERT INTO Ventas(fecha) values (?)", [fecha], (err, rows, fields) => {
+    if (err) throw err;
+  });
+
+  con.query("Select idVenta from Ventas where fecha = ?", [fecha], (err, rows, fields) => {
+    if (err) throw err;
+    var idVenta = rows[0].idVenta;
+    for(var i = 0; i < productos.length; i++){
+      con.query("INSERT INTO VentasP(idVenta, idProducto) values (?,?)", [idVenta, +productos[i].idProducto], (err, rows, fields) => {
+        if (err) throw err;
+      });
+    }
+  });
+
+  con.end();
+
+  res.status(200).json({
+    response: "ok",
+  });
+
+});
 
 
 app.listen(process.env.PORT || 3000, function () {
-  console.log("Server is running on port 80");
+  console.log(`Server is running on port ${process.env.PORT || 3000}`);
 });
