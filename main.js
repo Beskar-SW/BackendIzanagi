@@ -38,7 +38,6 @@ app.use("/Menu/:id", function (req, res) {
     [+id],
     function (err, rows, fields) {
       if (err) throw err;
-      console.log("fetched");
       // console.log(rows);
       res.json(rows);
     }
@@ -134,7 +133,6 @@ app.put("/Admin/update/:id", upload.any(),(req, res) => {
   var imagen = req.files[0];
   var nombreFoto = imagen.originalname;
 
-  console.log(imagen, nombreFoto);  
 
  //guardar la imagen en la carpeta public
   fs.writeFile(`public/${nombreFoto}`, imagen.buffer, (err) => {
@@ -157,7 +155,7 @@ app.put("/Admin/update/:id", upload.any(),(req, res) => {
       if (err) throw err;
     }
   );
-  
+
   con.end();
 
   res.status(200).json({
@@ -165,28 +163,19 @@ app.put("/Admin/update/:id", upload.any(),(req, res) => {
   });
 });
 
-app.post("/Admin/create", (req,res)=>{
+app.post("/Admin/create", upload.any(),(req,res)=>{
   var data = req.body;
   var producto = data.producto;
   var precio = data.precio;
   var descripcion = data.descripcion;
-  var imagen = data.base64;
-  var nombreFoto = data.rutaFoto;
+  var imagen = req.files[0];
+  var nombreFoto = imagen.originalname;
   var tipo = data.tipo;
 
-  //decodificar imagen y guardarla en la carpeta public
-  var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,\//,''), "base64");
-  // var ruta = `public\\${nombreFoto}`;
-  
-  // const __filename = fileURLToPath(import.meta.url);
-  // const __dirname = path.dirname(__filename);
-
-  fs.writeFile(`./public/${nombreFoto}`, decodedImage, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("The file was saved!");
-    }
+  //guardar la imagen en la carpeta public
+  fs.writeFile(`public/${nombreFoto}`, imagen.buffer, (err) => {
+    if (err) throw err;
+    console.log("The file has been saved!");
   });
 
   var con = mysql2.createConnection({
