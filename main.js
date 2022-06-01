@@ -172,8 +172,6 @@ app.post("/Admin/create", upload.any(),(req,res)=>{
   var nombreFoto = imagen.originalname;
   var tipo = data.tipo;
 
-  console.log(imagen)
-
   //guardar la imagen en la carpeta public
   fs.writeFile(`public/${nombreFoto}`, imagen.buffer, (err) => {
     if (err) throw err;
