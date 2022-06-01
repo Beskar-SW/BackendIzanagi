@@ -172,28 +172,30 @@ app.post("/Admin/create", upload.any(),(req,res)=>{
   var nombreFoto = imagen.originalname;
   var tipo = data.tipo;
 
-  //guardar la imagen en la carpeta public
-  fs.writeFile(`public/${nombreFoto}`, imagen.buffer, (err) => {
-    if (err) throw err;
-    console.log("The file has been saved!");
-  });
+  console.log(imagen)
 
-  var con = mysql2.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "Restaurant",
-    port: 3306,
-  });
+  // //guardar la imagen en la carpeta public
+  // fs.writeFile(`public/${nombreFoto}`, imagen.buffer, (err) => {
+  //   if (err) throw err;
+  //   console.log("The file has been saved!");
+  // });
 
-  con.query(
-    "INSERT INTO Productos (producto, precio, descripcion, rutaFoto, idTipoProducto) VALUES (?,?,?,?,?)",
-    [producto, precio, descripcion, nombreFoto, +tipo],
-    (err, rows, fields) => {
-      if (err) throw err;
-    }
-  );
-  con.end();
+  // var con = mysql2.createConnection({
+  //   host: "localhost",
+  //   user: "root",
+  //   password: "root",
+  //   database: "Restaurant",
+  //   port: 3306,
+  // });
+
+  // con.query(
+  //   "INSERT INTO Productos (producto, precio, descripcion, rutaFoto, idTipoProducto) VALUES (?,?,?,?,?)",
+  //   [producto, precio, descripcion, nombreFoto, +tipo],
+  //   (err, rows, fields) => {
+  //     if (err) throw err;
+  //   }
+  // );
+  // con.end();
 
   res.status(200).json({
     response: "ok",
