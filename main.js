@@ -78,7 +78,7 @@ app.get("/allproducts", function (req, res) {
   });
 
   con.query(
-    "SELECT producto FROM Productos",
+    "SELECT producto,precio FROM Productos",
     function (err, rows, fields) {
       if (err) throw err;
       res.json(rows);
