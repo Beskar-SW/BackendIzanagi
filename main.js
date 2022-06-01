@@ -3,6 +3,9 @@ import mysql2 from "mysql2";
 import fs from "fs";
 import cors from "cors";
 import "dotenv/config";
+import multer from "multer";
+
+const upload = multer();
 
 var app = express();
 
@@ -122,7 +125,7 @@ app.delete("/Admin/delete/:id", (req, res) => {
   });
 });
 
-app.put("/Admin/update/:id", (req, res) => {
+app.put("/Admin/update/:id", upload.none(),(req, res) => {
   var id = req.params.id;
   var data = req.body;
   // var producto = data.producto;
