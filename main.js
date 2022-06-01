@@ -128,13 +128,14 @@ app.delete("/Admin/delete/:id", (req, res) => {
 app.put("/Admin/update/:id", upload.any(),(req, res) => {
   var id = req.params.id;
   var data = req.body;
-  // var producto = data.producto;
-  // var precio = data.precio;
-  // var descripcion = data.descripcion;
+  var producto = data.producto;
+  var precio = data.precio;
+  var descripcion = data.descripcion;
   // var imagen = data.base64;
   // var nombreFoto = data.rutaFoto;
 
-  console.log(data);
+  console.log({data});
+  console.log(producto,precio,descripcion);
 
   // //decodificar imagen y guardarla en la carpeta public
   // var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
