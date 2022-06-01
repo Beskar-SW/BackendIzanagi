@@ -131,40 +131,34 @@ app.put("/Admin/update/:id", upload.any(),(req, res) => {
   var producto = data.producto;
   var precio = data.precio;
   var descripcion = data.descripcion;
-  // var imagen = data.base64;
-  // var nombreFoto = data.rutaFoto;
+  var imagen = req.files[0];
+  var nombreFoto = imagen.originalname;
 
-  console.log({data});
-  console.log(producto,precio,descripcion);
-  console.log(req.files);
+  console.log(imagen, nombreFoto);  
 
-  // //decodificar imagen y guardarla en la carpeta public
-  // var decodedImage = Buffer.from(imagen.replace(/^data:image\/(png|gif|jpeg);base64,/,''), "base64");
+ //guardar la imagen en la carpeta public
+  fs.writeFile(`public/${nombreFoto}`, imagen.buffer, (err) => {
+    if (err) throw err;
+    console.log("The file has been saved!");
+  });
 
-  // fs.writeFile(`./public/${nombreFoto}`, decodedImage, function (err) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log("The file was saved!");
-  //   }
-  // });
+  var con = mysql2.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
+    port: 3306,
+  });
 
-  // var con = mysql2.createConnection({
-  //   host: "localhost",
-  //   user: "root",
-  //   password: "root",
-  //   database: "Restaurant",
-  //   port: 3306,
-  // });
-
-  // con.query(
-  //   "UPDATE Productos SET producto = ?, precio = ?, descripcion = ?, rutaFoto = ? WHERE idProducto = ?",
-  //   [producto, precio, descripcion, nombreFoto, +id],
-  //   (err, rows, fields) => {
-  //     if (err) throw err;
-  //   }
-  // );
-  // con.end();
+  con.query(
+    "UPDATE Productos SET producto = ?, precio = ?, descripcion = ?, rutaFoto = ? WHERE idProducto = ?",
+    [producto, precio, descripcion, nombreFoto, +id],
+    (err, rows, fields) => {
+      if (err) throw err;
+    }
+  );
+  
+  con.end();
 
   res.status(200).json({
     response: "ok",
