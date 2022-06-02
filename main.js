@@ -233,11 +233,11 @@ app.post("/Admin/Pedidos", (req,res)=>{
     port: 3306,
   });
 
-  const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  // const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
   con.query(
-    "INSERT INTO Pedidos (nombreCliente, telefono, pedido, fecha) VALUES (?,?,?,?)",
-    [nombre, telefono, pedido, fecha],
+    "INSERT INTO Pedidos (nombreCliente, telefono, data) VALUES (?,?,?)",
+    [nombre, telefono, pedido],
     (err, rows, fields) => {
       if (err) throw err;
     }
