@@ -252,6 +252,26 @@ app.post("/Admin/Pedidos", (req,res)=>{
   });
 });
 
+app.get("/Admin/Pedidos", (req,res)=>{
+  var con = mysql2.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
+    port: 3306,
+  });
+
+  con.query(
+    "SELECT * FROM Pedidos",
+    (err, rows, fields) => {
+      if (err) throw err;
+      res.json(rows);
+    }
+  );
+
+  con.end();
+});
+
 app.post("/Admin/Ventas", (req,res)=>{
 
   var data = req.body.data;
@@ -288,6 +308,26 @@ app.post("/Admin/Ventas", (req,res)=>{
     response: "ok",
   });
 
+});
+
+app.get("/Admin/Ventas", (req,res)=>{
+  var con = mysql2.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Restaurant",
+    port: 3306,
+  });
+
+  con.query(
+    "SELECT * FROM Ventas",
+    (err, rows, fields) => {
+      if (err) throw err;
+      res.json(rows);
+    }
+  );
+
+  con.end();
 });
 
 app.listen(process.env.PORT || 3000, function () {
