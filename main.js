@@ -253,7 +253,7 @@ app.post("/Admin/Pedidos", (req,res)=>{
   });
 });
 
-app.post("Admin/Ventas", (req,res)=>{
+app.post("/Admin/Ventas", (req,res)=>{
 
   var data = req.body.data;
 
@@ -270,6 +270,9 @@ app.post("Admin/Ventas", (req,res)=>{
 
   const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
   
+  console.log(fecha);
+  console.log(dataString);
+
   con.query(
     "INSERT INTO Ventas(data, fecha) values (?,?)",
     [dataString, fecha],
@@ -277,6 +280,8 @@ app.post("Admin/Ventas", (req,res)=>{
       if (err) throw err;
     }
   );
+
+  con.commit();
 
   con.end();
 
