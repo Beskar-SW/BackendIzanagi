@@ -236,7 +236,7 @@ app.post("/Admin/Pedidos", (req,res)=>{
   const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
   con.query(
-    "INSERT INTO Pedidos (nombre, telefono, pedido, fecha) VALUES (?,?,?,?)",
+    "INSERT INTO Pedidos (nombreCliente, telefono, pedido, fecha) VALUES (?,?,?,?)",
     [nombre, telefono, pedido, fecha],
     (err, rows, fields) => {
       if (err) throw err;
