@@ -253,9 +253,12 @@ app.post("/Admin/Pedidos", (req,res)=>{
   });
 });
 
-app.post("/Admin/Ventas", (req,res)=>{
+app.post("Admin/Ventas", (req,res)=>{
 
   var data = req.body.data;
+
+  //data to string
+  var dataString = JSON.stringify(data);
 
   var con = mysql2.createConnection({
     host: "localhost",
@@ -269,7 +272,7 @@ app.post("/Admin/Ventas", (req,res)=>{
   
   con.query(
     "INSERT INTO Ventas(data, fecha) values (?,?)",
-    [data, fecha],
+    [dataString, fecha],
     (err, rows, fields) => {
       if (err) throw err;
     }
