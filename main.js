@@ -253,9 +253,9 @@ app.post("/Admin/Pedidos", (req,res)=>{
   });
 });
 
-app.post("Admin/Ventas", (req,res)=>{
+app.post("/Admin/Ventas", (req,res)=>{
 
-  var productos = req.body.productos;
+  var data = req.body.data;
 
   var con = mysql2.createConnection({
     host: "localhost",
@@ -266,21 +266,14 @@ app.post("Admin/Ventas", (req,res)=>{
   });
 
   const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  console.log(fecha);
-
-  con.query("INSERT INTO Ventas(fecha) values (?)", [fecha], (err, rows, fields) => {
-    if (err) throw err;
-  });
-
-  con.query("Select idVenta from Ventas where fecha = ?", [fecha], (err, rows, fields) => {
-    if (err) throw err;
-    var idVenta = rows[0].idVenta;
-    for(var i = 0; i < productos.length; i++){
-      con.query("INSERT INTO VentasP(idVenta, idProducto) values (?,?)", [idVenta, +productos[i].idProducto], (err, rows, fields) => {
-        if (err) throw err;
-      });
+  
+  con.query(
+    "INSERT INTO Ventas(data, fecha) values (?,?)",
+    [data, fecha],
+    (err, rows, fields) => {
+      if (err) throw err;
     }
-  });
+  );
 
   con.end();
 
