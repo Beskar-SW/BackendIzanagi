@@ -221,7 +221,9 @@ app.post("/Admin/create", upload.any(),(req,res)=>{
 });
 
 app.post("/Admin/Pedidos", (req,res)=>{
-  var pedido = req.body;
+  var nombre = req.body.nombre;
+  var telefono = req.body.telefono;
+  var pedido = req.body.data;
 
   var con = mysql2.createConnection({
     host: "localhost",
@@ -231,20 +233,18 @@ app.post("/Admin/Pedidos", (req,res)=>{
     port: 3306,
   });
 
+  var pedidoString = JSON.stringify(pedido);
   const fecha = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  console.log(fecha);
 
-  con.query("INSERT INTO Pedidos(fecha) values (?)", [fecha], (err, rows, fields) => {
-    if (err) throw err;
-  });
-
-  con.query("Select idPedido from Pedidos where fecha = ?", [fecha], (err, rows, fields) => {
-    if (err) throw err;
-    var idPedido = rows[0].idPedido;
-    con.query("INSERT INTO PedidosP(idPedido, idProducto, cantidad, nombrePersona) values (?,?,?,?)", [idPedido, +pedido.idProducto, +pedido.cantidad, idPedido.cliente], (err, rows, fields) => {
+  con.query(
+    "INSERT INTO Pedidos (nombre, telefono, pedido, fecha) VALUES (?,?,?,?)",
+    [nombre, telefono, pedidoString, fecha],
+    (err, rows, fields) => {
       if (err) throw err;
-    });
-  });
+    }
+  );
+
+  con.commit();
 
   con.end();
 
@@ -290,7 +290,6 @@ app.post("/Admin/Ventas", (req,res)=>{
   });
 
 });
-
 
 app.listen(process.env.PORT || 3000, function () {
   console.log(`Server is running on port ${process.env.PORT || 3000}`);
