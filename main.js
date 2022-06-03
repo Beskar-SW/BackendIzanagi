@@ -275,6 +275,7 @@ app.get("/Admin/Pedidos", (req,res)=>{
 app.post("/Admin/Ventas", (req,res)=>{
 
   var data = req.body.data;
+  var total = req.body.total;
 
   //data to string
   var dataString = JSON.stringify(data);
@@ -293,8 +294,8 @@ app.post("/Admin/Ventas", (req,res)=>{
   console.log(dataString);
 
   con.query(
-    "INSERT INTO Ventas(data, fecha) values (?,?)",
-    [dataString, fecha],
+    "INSERT INTO Ventas(data, fecha, total) values (?,?,?)",
+    [dataString, fecha,+total],
     (err, rows, fields) => {
       if (err) throw err;
     }
