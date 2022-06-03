@@ -279,6 +279,7 @@ app.post("/Admin/Ventas", (req,res)=>{
 
   //data to string
   var dataString = JSON.stringify(data);
+  console.log(total)
 
   var con = mysql2.createConnection({
     host: "localhost",
@@ -295,7 +296,7 @@ app.post("/Admin/Ventas", (req,res)=>{
 
   con.query(
     "INSERT INTO Ventas(data, fecha, total) values (?,?,?)",
-    [dataString, fecha,+total],
+    [dataString, fecha,total],
     (err, rows, fields) => {
       if (err) throw err;
     }
